@@ -1,6 +1,5 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QWidget
-from os import listdir
 
 # Import inner modules
 from core.files import ConfigManager
@@ -15,8 +14,8 @@ class WDWindow(QWidget):
         super(WDWindow, self).__init__()
 
         self.conf_manager = ConfigManager()
-        # self.audio_manager = AudioManager()
-        # self.load_audio()
+        self.audio_manager = AudioManager()
+        self.load_audio()
 
         uic.loadUi("window.ui", self)
         self.setWindowTitle("WaveDesk")
@@ -40,8 +39,9 @@ class WDWindow(QWidget):
         dirs = self.conf_manager.get("dirs_array")
 
         #TODO: rework this crutch
-        device = (self.audio_manager.get_output_devices())[0]
-        self.audio_manager.play_sound(dirs[0][0], device)
+        devices = (self.audio_manager.get_output_devices())
+        print(devices)
+        # self.audio_manager.play_sound(dirs[0][0], devices[0])
 
 if __name__ == "__main__":
     app = QApplication([])

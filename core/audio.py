@@ -1,6 +1,8 @@
 import pyaudio
 import wave
 
+CHUNK = 1024
+
 class AudioManager:
     """
     Class for managing audio usage
@@ -35,10 +37,10 @@ class AudioManager:
                                   output_device_index=output_device_index)
 
         # Read and play data
-        data = wf.readframes(1024)
-        while data:
+        data = wf.readframes(CHUNK)
+        while len(data := wf.readframes(CHUNK)):
             self.stream.write(data)
-            data = wf.readframes(1024)
+
 
         # Stop stream
         self.stream.stop_stream()
@@ -46,3 +48,11 @@ class AudioManager:
 
     def __del__(self):
         self.p.terminate()
+
+if __name__ == "__main__":
+    am = AudioManager()
+    devices = am.get_output_devices()
+    print(devices)
+
+    am.play_sound("../audio/Sample1.wav", 2)
+

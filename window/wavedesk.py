@@ -6,7 +6,7 @@ from core.files import ConfigManager
 from core.audio import AudioManager
 
 # Import settings images
-import rc_icons
+#import rc_icons
 
 # Window subclass
 class WDWindow(QWidget):
